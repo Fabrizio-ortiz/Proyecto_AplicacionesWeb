@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Mantenimiento Orden de Compra</title>
+<title>Orden de Compra</title>
 
  	<!-- Bootstrap CSS -->
     <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
@@ -58,11 +58,13 @@
 	  
 </head>
 <body>
+	<div th:insert="plantilla/UITemplate :: cabecera"></div>
+	
 	<div class="container">
 		<br>
 		<h3 class="text-center">::: LISTA ORDEN DE COMPRA :::</h3>	  
-	    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
-	  		Nuevo Orden de Compra
+	    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+	  		Generar Orden de Compra
 	  	</button> 
 	  	
 	  	<!-- Modal PARA REGISTRAR-->
@@ -73,10 +75,13 @@
 		        <h5 class="modal-title" id="staticBackdropLabel">ORDEN DE COMPRA</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
+		      
 		      <div class="modal-body">
+		      
 		        <form id="formEmpleado" action="/ordenCompra/grabar" method="post" class="row g-3">
+		        
 		         <div class="form-group col-md-4">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Código</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">CÓDIGO</label>
 				    <div class="input-group has-validation">
 				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-1-circle"></i></span>
 				      <input type="text" class="form-control" name="codigo" id="idCodigo" readonly value="0">
@@ -84,7 +89,7 @@
 				  </div>
 				  
 				  <div class="form-group col-md-6">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Numero Orden</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">ORDEN</label>
 				    <div class="input-group has-validation">
 				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-1-circle"></i></span>
 				      <input type="text" class="form-control" name="numero" id="idNumeroOrden">
@@ -92,15 +97,15 @@
 				  </div>
 				  		  
 				  <div class="form-group col-md-6">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Sede</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">SEDE</label>
 				    <div class="input-group has-validation">
-				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-person"></i></span>
+				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-bank2"></i></span>
 				      <input type="text" class="form-control" name="sede" id="idSede">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group col-md-6">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Código Postal</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">CÓDIGO POSTAL</label>
 				    <div class="input-group has-validation">
 				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-bank2"></i></span>
 				      <input type="text" class="form-control" name="codigoPostal" id="idCodigoPostal">
@@ -108,22 +113,22 @@
 				  </div>
 				  
 				  <div class="form-group col-md-4">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Fecha</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">FECHA</label>
 				    <div class="input-group has-validation">
 				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-calendar-date"></i></span>
 				      <i class="fas fa-calendar-week form-control-feedback2"></i>
 												    <input type="text" style="background-color:#aed6f1" class="form-control" id="usr1"
 												    													  name="fecha" placeholder="YYYY-MM-DD" autocomplete="off" >
-				</div>
+					</div>
 		          </div>
 				  
 				  <div class="form-group col-md-6">
-				    <label for="validationCustomUsername" class="form-label fw-bold">Proveedor</label>
+				    <label for="validationCustomUsername" class="form-label fw-bold">SUPERVISOR</label>
 				    <div class="input-group has-validation">
 				      <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-person"></i></span>
-				      <select class="form-select form-control" name="proveedor" id="idProveedor">
-					  <option value=" ">[Seleccione Proveedor]</option>
-					  <option th:each="row:${listaProveedores}" 
+				      <select class="form-select form-control" name="supervisor" id="idSupervisor">
+					  <option value=" ">[Seleccione Supervisor]</option>
+					  <option th:each="row:${listaSupervisor}" 
 					  		th:utext="${row.nombre}"
 					  		th:value="${row.codigo}"
 					  />
@@ -135,6 +140,7 @@
 			      	<button type="submit" class="btn btn-success"><i class="bi bi-save2"></i> Grabar</button>
 			        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill"></i> Cerrar</button>
 			      </div>
+			      
 				</form>
 		      </div>
 		    </div>
@@ -145,24 +151,24 @@
 	    <div class="mt-5">
 	    <table id="tableEmpleados" class="table table-striped" style="width:100%">
         <thead>
-							   <tr>
-					                <th>Código</th>
-					                <th>Número Orden</th>
-					                <th>Sede</th>
-					                <th>Código Postal</th>
-					                <th>Fecha</th>
-					                <th>Proveedor</th>
+							    <tr>
+					                <th>CÓDIGO</th>
+					                <th>ORDEN</th>
+					                <th>SEDE</th>
+					                <th>CÓDIGO POSTAL</th>
+					                <th>FECHA</th>
+					                <th>SUPERVISOR</th>
 					                <th></th>
 					            </tr>
 							  </thead>
 							  <tbody>
-								<tr  th:each="bean:${Ordenes}">
+								<tr th:each="bean:${Ordenes}">
 							      <td th:text="${bean.codigo}"></td>
 							      <td th:text="${bean.numero}"></td>
 							      <td th:text="${bean.sede}"></td>
 							      <td th:text="${bean.codigoPostal}"></td>
 							      <td th:text="${bean.fecha}"></td>
-							      <td th:text="${bean.proveedor.nombre}"></td>
+							      <td th:text="${bean.supervisor.nombre}"></td>
 							      <td>
                                       <a class="btn btn-info btn-editar" data-bs-toggle="modal" data-bs-target="#modalEmpleado"><i class="bi bi-pencil"></i></a>
 							          <a class="btn btn-danger btn-eliminar"><i class="bi bi-trash-fill"></i></a>
@@ -236,8 +242,8 @@
 				$("#idNumeroOrden").val(response.numero);
 				$("#idSede").val(response.sede);
 				$("#idCodigoPostal").val(response.codigoPostal);
-				$("#usrl").val(response.fecha);
-				$("#idProveedor").val(response.proveedor.codigo);
+				$("#usr1").val(response.fecha);
+				$("#idSupervisor").val(response.supervisor.codigo);
 			})
 			
 		})
@@ -247,7 +253,7 @@
 			let cod;
 			//obtener el código(columna 0) de la fila actual según el botón que se hizo click
 			cod=$(this).parents("tr").find("td")[0].innerHTML;
-			alertify.confirm("Seguro de eliminar?",
+			alertify.confirm("¿Seguro de eliminar?",
 			  function(){
 			    	window.location="eliminar?codigo="+cod;
 			    

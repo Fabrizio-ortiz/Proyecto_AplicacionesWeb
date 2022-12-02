@@ -15,6 +15,7 @@
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}"> 
 	
+	
 	<style>
 		.modal-header{
 		color:#fff;
@@ -58,6 +59,8 @@
 	  
 </head>
 <body>
+	<div th:insert="plantilla/UITemplate :: cabecera"></div>
+	
 	<div class="container">
 		<br>
 		<h3 class="text-center">::: LISTA BIENES :::</h3>	  
@@ -224,7 +227,7 @@
 				$("#idCodigo").val(response.codigo);
 				$("#idProveedor").val(response.proveedor.codigo);
 				$("#idDescripcion").val(response.descripcion);
-				$("#usrl").val(response.fechaEntrada);
+				$("#usr1").val(response.fechaEntrada);
 				$("#idPrecio").val(response.precio);
 				
 			})
@@ -247,9 +250,12 @@
 		})
 		
 		
+
+ 
 		 
 	</script>
-	
+	 
+	 
 	
 </body>
 </html>

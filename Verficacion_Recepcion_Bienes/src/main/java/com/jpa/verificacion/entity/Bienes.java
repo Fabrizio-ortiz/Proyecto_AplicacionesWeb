@@ -2,6 +2,7 @@ package com.jpa.verificacion.entity;
 
 import java.time.LocalDate;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,15 +22,18 @@ public class Bienes {
 	@Column(name="cod_bien")
 	private Integer codigo;
 	
+	
 	@Column(name="des_bien")
 	private String descripcion;
+	
 	
 	@Column(name="pre_bien")
 	private double precio;
 	
+	
 	@Column(name="fechaentrada_bien")
 	private LocalDate fechaEntrada;
-	
+
 	@ManyToOne
 	@JoinColumn(name="cod_provee")
 	private Proveedor proveedor;

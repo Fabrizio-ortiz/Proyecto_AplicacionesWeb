@@ -1,4 +1,4 @@
-package com.jpa.verificacion.controller;
+ package com.jpa.verificacion.controller;
 
 import java.time.LocalDate;
 import java.util.List;

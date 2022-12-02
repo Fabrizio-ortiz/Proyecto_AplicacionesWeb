@@ -13,10 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jpa.verificacion.entity.OrdenCompra;
 import com.jpa.verificacion.entity.Proveedor;
+import com.jpa.verificacion.entity.Supervisor;
 import com.jpa.verificacion.service.OrdenCompraService;
 import com.jpa.verificacion.service.ProveedorService;
-
-
+import com.jpa.verificacion.service.SupervisorService;
 
 @Controller
 @RequestMapping("/ordenCompra")
@@ -25,24 +25,32 @@ public class OrdenCompraController {
 	@Autowired
 	private OrdenCompraService serviceCompra;
 	@Autowired
-	private ProveedorService serviceProveedor;
+	private SupervisorService serviceSuper;
 	
 	@RequestMapping("/lista")
 	public String inicio(Model model) {
 		
 		List<OrdenCompra> lista =  serviceCompra.listarTodos();
-		List<Proveedor> listaProve = serviceProveedor.listarTodos();
+		List<Supervisor> listaSup = serviceSuper.listarTodos();
 		
 		model.addAttribute("Ordenes", lista);
-		model.addAttribute("listaProveedores", listaProve);
+		model.addAttribute("listaSupervisor", listaSup);
 		
 		return "ordenCompra";
 	}
 	
+	@RequestMapping("/consulta")
+	@ResponseBody
+	public List<OrdenCompra> consulta(@RequestParam("codigo") int cod){
+		List<OrdenCompra> lista = serviceCompra.listarOrdenPorSupervisor(cod);
+		return lista;
+	}
+	
+	
 	@RequestMapping("/grabar")
 	public String grabar(@RequestParam("codigo")int cod, @RequestParam("numero")String num,
 			@RequestParam("sede")String sede, @RequestParam("codigoPostal")String codPos,
-			@RequestParam("fecha")String fec, @RequestParam("proveedor")int prove, RedirectAttributes redirect) {
+			@RequestParam("fecha")String fec, @RequestParam("supervisor")int supe, RedirectAttributes redirect) {
 		try {
 			OrdenCompra ord = new OrdenCompra();
 			ord.setCodigo(cod);
@@ -50,8 +58,9 @@ public class OrdenCompraController {
 			ord.setSede(sede);
 			ord.setCodigoPostal(codPos);
 			ord.setFecha(LocalDate.parse(fec));
-			Proveedor pro = new Proveedor();
-			pro.setCodigo(prove);
+			Supervisor SUPE = new Supervisor();
+			SUPE.setCodigo(supe);
+			ord.setSupervisor(SUPE);
 			
 			serviceCompra.guardar(ord);
 			if(cod == 0)

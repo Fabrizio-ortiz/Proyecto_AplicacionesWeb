@@ -11,14 +11,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+
+
 @Entity
-@Table(name ="tb_ordencompra")
+@Table(name ="tb_orden")
 public class OrdenCompra {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "cod_orden")
-	private Integer codigo;
+	private int codigo;
 	
 	@Column (name = "num_orden")
 	private String numero;
@@ -33,14 +35,15 @@ public class OrdenCompra {
 	private LocalDate fecha;
 	
 	@ManyToOne
-	@JoinColumn(name="cod_provee")
-	private Proveedor proveedor;
+	@JoinColumn(name="cod_supervisor")
+	private Supervisor supervisor;
+	
 
-	public Integer getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
@@ -76,13 +79,16 @@ public class OrdenCompra {
 		this.fecha = fecha;
 	}
 
-	public Proveedor getProveedor() {
-		return proveedor;
+	public Supervisor getSupervisor() {
+		return supervisor;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
-		this.proveedor = proveedor;
+	public void setSupervisor(Supervisor supervisor) {
+		this.supervisor = supervisor;
 	}
+
+	
+
 	
 	
 }

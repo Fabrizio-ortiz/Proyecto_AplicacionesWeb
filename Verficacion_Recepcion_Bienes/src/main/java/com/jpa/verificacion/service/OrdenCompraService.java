@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.jpa.verificacion.entity.OrdenCompra;
 import com.jpa.verificacion.repository.OrdenCompraRepository;
 
-
-
 @Service
 public class OrdenCompraService {
 
@@ -27,6 +25,9 @@ public class OrdenCompraService {
 	}
 	public List<OrdenCompra> listarTodos(){
 		return repo.findAll();
+	}
+	public List<OrdenCompra> listarOrdenPorSupervisor(int cod){
+		return repo.listAllBySupervisor(cod);
 	}
 
 }
